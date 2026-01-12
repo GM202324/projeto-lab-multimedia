@@ -29,6 +29,11 @@ if(navLoginBtn) {
             currentUser = null;
             navLoginBtn.textContent = "Login";
             showAlert("Logout", "Sessão terminada com sucesso.");
+            // Limpa campos se existirem
+            const contactName = document.getElementById('contact-name');
+            const contactEmail = document.getElementById('contact-email');
+            if(contactName) contactName.value = '';
+            if(contactEmail) contactEmail.value = '';
         } else {
             authModal.classList.add('active');
         }
@@ -81,13 +86,14 @@ if(authForm) {
                     currentUser = result.user;
                     navLoginBtn.textContent = `Olá, ${currentUser.name.split(' ')[0]}`;
                     
-                    // Auto-preencher formulário de contacto se existir
+                    // Auto-preencher formulário de contacto se existir nesta página
                     const contactName = document.getElementById('contact-name');
                     const contactEmail = document.getElementById('contact-email');
                     if(contactName) contactName.value = currentUser.name;
                     if(contactEmail) contactEmail.value = currentUser.email;
 
                 } else {
+                    // Se foi registo, muda para login para a pessoa entrar
                     authSwitchText.click();
                 }
             } else {
@@ -163,7 +169,14 @@ document.querySelectorAll('.track-click').forEach(btn => {
     });
 });
 
-// --- SLIDESHOW, NAV E PLAYERS (Código Visual) ---
+// --- HELPER: FORMATAR TEMPO ---
+function formatTime(seconds) {
+    const min = Math.floor(seconds / 60);
+    const sec = Math.floor(seconds % 60);
+    return `${min}:${sec < 10 ? '0' : ''}${sec}`;
+}
+
+// --- SLIDESHOW (HERO) ---
 const container = document.getElementById('slideshow-box');
 if(container) {
     for (let i = 1; i <= 30; i++) {
@@ -185,6 +198,7 @@ if(container) {
     showSlides();
 }
 
+// --- NAVEGAÇÃO SUAVE ---
 document.querySelectorAll('nav a').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         if (this.getAttribute('href').startsWith("#")) {
@@ -195,14 +209,7 @@ document.querySelectorAll('nav a').forEach(anchor => {
     });
 });
 
-// Helper de tempo
-function formatTime(seconds) {
-    const min = Math.floor(seconds / 60);
-    const sec = Math.floor(seconds % 60);
-    return `${min}:${sec < 10 ? '0' : ''}${sec}`;
-}
-
-// Configuração Players
+// --- PLAYERS DE ÁUDIO E VÍDEO (COM CORREÇÃO DE DURAÇÃO) ---
 function setupPlayer(mediaId, playBtnId, playIconId, pauseIconId, progressId, barId, timeId, durId) {
     const media = document.getElementById(mediaId);
     const playBtn = document.getElementById(playBtnId);
@@ -215,31 +222,60 @@ function setupPlayer(mediaId, playBtnId, playIconId, pauseIconId, progressId, ba
 
     if(!media) return;
 
+    // Função robusta para atualizar a duração
+    const updateDuration = () => {
+        if(media.duration && !isNaN(media.duration) && media.duration !== Infinity) {
+            durEl.textContent = formatTime(media.duration);
+        }
+    };
+
     playBtn.addEventListener('click', () => {
-        if (media.paused) { media.play(); playIcon.classList.add('hidden'); pauseIcon.classList.remove('hidden'); }
-        else { media.pause(); playIcon.classList.remove('hidden'); pauseIcon.classList.add('hidden'); }
+        if (media.paused) { 
+            media.play(); 
+            playIcon.classList.add('hidden'); 
+            pauseIcon.classList.remove('hidden'); 
+        } else { 
+            media.pause(); 
+            playIcon.classList.remove('hidden'); 
+            pauseIcon.classList.add('hidden'); 
+        }
     });
 
     media.addEventListener('timeupdate', () => {
-        bar.style.width = `${(media.currentTime / media.duration) * 100}%`;
-        timeEl.textContent = formatTime(media.currentTime);
+        if(media.duration) {
+            bar.style.width = `${(media.currentTime / media.duration) * 100}%`;
+            timeEl.textContent = formatTime(media.currentTime);
+        }
     });
     
-    media.addEventListener('loadedmetadata', () => durEl.textContent = formatTime(media.duration));
+    // Tenta atualizar a duração em vários momentos para garantir que não falha
+    media.addEventListener('loadedmetadata', updateDuration);
+    media.addEventListener('durationchange', updateDuration);
+    media.addEventListener('canplay', updateDuration);
+
+    // Se o ficheiro já estiver carregado quando o JS corre (cache), força a atualização
+    if (media.readyState >= 1) {
+        updateDuration();
+    }
     
     progress.addEventListener('click', (e) => {
-        media.currentTime = (e.offsetX / progress.clientWidth) * media.duration;
+        if(media.duration) {
+            media.currentTime = (e.offsetX / progress.clientWidth) * media.duration;
+        }
     });
 
     media.addEventListener('ended', () => {
-        playIcon.classList.remove('hidden'); pauseIcon.classList.add('hidden'); bar.style.width = '0%';
+        playIcon.classList.remove('hidden'); 
+        pauseIcon.classList.add('hidden'); 
+        bar.style.width = '0%';
     });
 }
 
+// Inicializar Players
 setupPlayer('main-audio', 'play-pause-btn', 'play-icon', 'pause-icon', 'progress-container', 'progress-bar', 'current-time', 'duration');
 setupPlayer('main-video', 'video-play-btn', 'video-play-icon', 'video-pause-icon', 'video-progress-container', 'video-progress-bar', 'video-current-time', 'video-duration');
 
-// Carrossel
+// --- CARROSSEL DA LOJA ---
 const storeTrack = document.getElementById('store-track');
 const storeNext = document.getElementById('store-next');
 const storePrev = document.getElementById('store-prev');
@@ -249,6 +285,7 @@ if(storeTrack) {
     const originalCount = originalProducts.length; 
     const cloneCount = 3; 
 
+    // Clones para efeito infinito
     for (let i = 0; i < cloneCount; i++) storeTrack.appendChild(originalProducts[i].cloneNode(true));
     for (let i = originalCount - 1; i >= originalCount - cloneCount; i--) storeTrack.insertBefore(originalProducts[i].cloneNode(true), storeTrack.firstChild);
 
