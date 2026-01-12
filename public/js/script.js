@@ -106,7 +106,7 @@ if(authForm) {
     });
 }
 
-// --- FORMULÁRIO DE CONTACTO (NOVO) ---
+// --- FORMULÁRIO DE CONTACTO ---
 const contactForm = document.getElementById('contact-form');
 if (contactForm) {
     contactForm.addEventListener('submit', async (e) => {
@@ -198,7 +198,7 @@ if(container) {
     showSlides();
 }
 
-// --- NAVEGAÇÃO SUAVE ---
+// --- NAVEGAÇÃO SUAVE (DESKTOP) ---
 document.querySelectorAll('nav a').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         if (this.getAttribute('href').startsWith("#")) {
@@ -209,7 +209,7 @@ document.querySelectorAll('nav a').forEach(anchor => {
     });
 });
 
-// --- PLAYERS DE ÁUDIO E VÍDEO (COM CORREÇÃO DE DURAÇÃO) ---
+// --- PLAYERS DE ÁUDIO E VÍDEO ---
 function setupPlayer(mediaId, playBtnId, playIconId, pauseIconId, progressId, barId, timeId, durId) {
     const media = document.getElementById(mediaId);
     const playBtn = document.getElementById(playBtnId);
@@ -222,7 +222,6 @@ function setupPlayer(mediaId, playBtnId, playIconId, pauseIconId, progressId, ba
 
     if(!media) return;
 
-    // Função robusta para atualizar a duração
     const updateDuration = () => {
         if(media.duration && !isNaN(media.duration) && media.duration !== Infinity) {
             durEl.textContent = formatTime(media.duration);
@@ -248,12 +247,10 @@ function setupPlayer(mediaId, playBtnId, playIconId, pauseIconId, progressId, ba
         }
     });
     
-    // Tenta atualizar a duração em vários momentos para garantir que não falha
     media.addEventListener('loadedmetadata', updateDuration);
     media.addEventListener('durationchange', updateDuration);
     media.addEventListener('canplay', updateDuration);
 
-    // Se o ficheiro já estiver carregado quando o JS corre (cache), força a atualização
     if (media.readyState >= 1) {
         updateDuration();
     }
@@ -271,7 +268,6 @@ function setupPlayer(mediaId, playBtnId, playIconId, pauseIconId, progressId, ba
     });
 }
 
-// Inicializar Players
 setupPlayer('main-audio', 'play-pause-btn', 'play-icon', 'pause-icon', 'progress-container', 'progress-bar', 'current-time', 'duration');
 setupPlayer('main-video', 'video-play-btn', 'video-play-icon', 'video-pause-icon', 'video-progress-container', 'video-progress-bar', 'video-current-time', 'video-duration');
 
@@ -285,7 +281,6 @@ if(storeTrack) {
     const originalCount = originalProducts.length; 
     const cloneCount = 3; 
 
-    // Clones para efeito infinito
     for (let i = 0; i < cloneCount; i++) storeTrack.appendChild(originalProducts[i].cloneNode(true));
     for (let i = originalCount - 1; i >= originalCount - cloneCount; i--) storeTrack.insertBefore(originalProducts[i].cloneNode(true), storeTrack.firstChild);
 
@@ -304,4 +299,39 @@ if(storeTrack) {
     storeNext.addEventListener('click', () => { currentIndex++; slideStore(); });
     storePrev.addEventListener('click', () => { currentIndex--; slideStore(); });
     window.addEventListener('resize', () => { storeTrack.style.transition = 'none'; storeTrack.style.transform = `translateX(-${currentIndex * getStep()}%)`; });
+}
+
+// --- MENU MOBILE TOGGLE (NOVO) ---
+const menuToggle = document.getElementById('menu-toggle');
+const mainNav = document.getElementById('main-nav');
+
+if (menuToggle && mainNav) {
+    menuToggle.addEventListener('click', () => {
+        mainNav.classList.toggle('active');
+        
+        // Animação simples das 3 linhas (transforma em X)
+        const spans = menuToggle.querySelectorAll('span');
+        if(mainNav.classList.contains('active')) {
+            // Estado Aberto (X)
+            spans[0].style.transform = "rotate(45deg) translate(5px, 5px)";
+            spans[1].style.opacity = "0";
+            spans[2].style.transform = "rotate(-45deg) translate(5px, -5px)";
+        } else {
+            // Estado Fechado (Hambúrguer)
+            spans[0].style.transform = "none";
+            spans[1].style.opacity = "1";
+            spans[2].style.transform = "none";
+        }
+    });
+
+    // Fechar o menu automaticamente ao clicar num link
+    mainNav.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            mainNav.classList.remove('active');
+            const spans = menuToggle.querySelectorAll('span');
+            spans[0].style.transform = "none";
+            spans[1].style.opacity = "1";
+            spans[2].style.transform = "none";
+        });
+    });
 }
