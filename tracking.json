@@ -1,0 +1,26 @@
+[
+  {
+    "action": "Clique Compra",
+    "details": "Reserva Coimbra 24 Julho",
+    "timestamp": "2026-01-12T02:40:50.453Z",
+    "ip": "::1"
+  },
+  {
+    "action": "Compra Concluída",
+    "details": "Reserva Coimbra 24 Julho",
+    "timestamp": "2026-01-12T02:41:01.049Z",
+    "ip": "::1"
+  },
+  {
+    "action": "Clique Compra",
+    "details": "Bilhete Coimbra 31 Julho",
+    "timestamp": "2026-01-12T02:41:08.724Z",
+    "ip": "::1"
+  },
+  {
+    "action": "Compra Concluída",
+    "details": "Bilhete Coimbra 31 Julho",
+    "timestamp": "2026-01-12T02:41:22.570Z",
+    "ip": "::1"
+  }
+]

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nelson Freitas / Steve Benjamins - Site Oficial</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Urbanist:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <header>
+        <a href="#hero" class="header-logo">
+            <img src="Logo/yellow.svg" alt="Logotipo Oficial">
+        </a>
+
+        <nav>
+            <a href="#hero">Início</a>
+            <a href="#video">Vídeos</a>
+            <a href="#music">Música</a>
+            <a href="#events">Agenda</a>
+            <a href="#news">Notícias</a>
+            <a href="#store">Loja</a>
+            <a href="#about">Sobre</a>
+            <a href="#subscribe">Subscrever</a>
+            <a href="#contact">Contactos</a>
+            <button id="nav-login-btn" class="nav-btn login-btn">Login</button>
+        </nav>
+    </header>
+
+    <section id="hero">
+        <div class="slideshow-container" id="slideshow-box"></div>
+    </section>
+
+    <section id="video">
+        <div class="section-header"><h2>Vídeos</h2></div>
+        <div class="video-centered-container">
+            <div class="video-item-featured">
+                <div class="video-thumb" style="height: auto;">
+                    <video id="main-video" style="width: 100%; height: 500px; object-fit: cover; background: black;">
+                        <source src="https://res.cloudinary.com/tua-conta/video/upload/v12345678/BlueHouse_Grupo_G.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="video-controls-wrapper">
+                    <div class="audio-controls">
+                        <button id="video-play-btn" class="play-pause-btn">
+                            <svg id="video-play-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                            <svg id="video-pause-icon" class="hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+                        </button>
+                        <div class="progress-container" id="video-progress-container">
+                            <div class="progress-bar" id="video-progress-bar"></div>
+                        </div>
+                        <div class="time-display">
+                            <span id="video-current-time">0:00</span> / <span id="video-duration">0:00</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">Entrevista com Ana</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="music">
+        <div class="section-header"><h2>Lançamento</h2></div>
+        <div class="music-player">
+            <div class="album-art"><img src="Album/Album.png" alt="Capa Album"></div>
+            <div class="track-info">
+                <span style="font-family: var(--font-sans); font-weight: 600; opacity:0.7; letter-spacing: 1px;">ARTISTAS: TI LAURINDA E LURDES</span>
+                <h3>QUEM MANDA</h3>
+                <p>Novo Single</p>
+                <audio id="main-audio" src="https://res.cloudinary.com/dpjcsqqph/video/upload/v1768187379/TI_LAURINDA_E_LURDES_qn2ecv.wav"></audio>
+                <div class="custom-audio-wrapper">
+                    <div class="audio-controls">
+                        <button id="play-pause-btn" class="play-pause-btn">
+                            <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                            <svg id="pause-icon" class="hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+                        </button>
+                        <div class="progress-container" id="progress-container">
+                            <div class="progress-bar" id="progress-bar"></div>
+                        </div>
+                        <div class="time-display">
+                            <span id="current-time">0:00</span> / <span id="duration">0:00</span>
+                        </div>
+                    </div>
+                </div>
+                <ul class="track-list" style="margin-top: 30px;">
+                    <li><span>1. QUEM MANDA</span> <span>03:18</span></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="events">
+        <div class="section-header"><h2>Próximas Datas</h2></div>
+        <div class="event-row">
+            <div class="date-box"><span class="day">24</span><span class="month">JUL</span></div>
+            <div class="event-details"><h4>Coimbra</h4><span>Praça do Comércio</span></div>
+            <div class="event-actions">
+                <a href="bilhetes.html#jul24" class="btn-link">Mais Info</a>
+                <a href="checkout.html?produto=Reserva Coimbra 24 Julho&preco=0.00" class="btn-main track-click">Reservar Lugar</a>
+            </div>
+        </div>
+        <div class="event-row">
+            <div class="date-box"><span class="day">31</span><span class="month">JUL</span></div>
+            <div class="event-details"><h4>Coimbra</h4><span>Casa das Artes Bissaya Barreto</span></div>
+            <div class="event-actions">
+                <a href="bilhetes.html#jul31" class="btn-link">Mais Info</a>
+                <a href="checkout.html?produto=Bilhete Coimbra 31 Julho&preco=10.00" class="btn-main track-click">Comprar Bilhetes</a>
+            </div>
+        </div>
+        <div class="event-row">
+            <div class="date-box"><span class="day">7</span><span class="month">AGO</span></div>
+            <div class="event-details"><h4>Coimbra</h4><span>Largo do Poço</span></div>
+            <div class="event-actions">
+                <a href="bilhetes.html#ago07" class="btn-link">Mais Info</a>
+                <span class="btn-disabled">Entrada Livre</span>
+            </div>
+        </div>
+        <div class="event-row">
+            <div class="date-box"><span class="day">14</span><span class="month">AGO</span></div>
+            <div class="event-details"><h4>Coimbra</h4><span>Jardim da Sereia</span></div>
+            <div class="event-actions">
+                <a href="bilhetes.html#ago14" class="btn-link">Mais Info</a>
+                <a href="checkout.html?produto=Bilhete Coimbra 14 Agosto&preco=15.00" class="btn-main track-click">Comprar Bilhetes</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="news">
+        <div class="section-header"><h2>Últimas Notícias</h2></div>
+        <div class="news-grid">
+            <article class="news-card">
+                <img src="https://placehold.co/400x300/0D0706/F2E3D0?text=Novo+Single" alt="Novo Single">
+                <div class="news-content">
+                    <div class="news-title">"Quem Manda" Já Disponível</div>
+                    <p class="news-desc">O novo single que une a tradição da Ti Laurinda à energia da Lurdes.</p>
+                    <a href="noticia.html#single" class="read-more">Ler Mais →</a>
+                </div>
+            </article>
+            <article class="news-card">
+                <img src="https://placehold.co/400x300/0D0706/F2E3D0?text=Tour+Coimbra" alt="Tour Coimbra">
+                <div class="news-content">
+                    <div class="news-title">Estreia na Praça do Comércio</div>
+                    <p class="news-desc">A grande tour de verão arranca em Coimbra no dia 24 de Julho.</p>
+                    <a href="noticia.html#tour" class="read-more">Ler Mais →</a>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <section id="store">
+        <div class="section-header"><h2>Loja Oficial</h2></div>
+        <div class="store-carousel-wrapper">
+            <button class="carousel-btn prev-btn" id="store-prev">&#10094;</button>
+            <div class="store-viewport">
+                <div class="store-track" id="store-track">
+                    <div class="product">
+                        <div class="product-img"><img src="MOCKUPS/Camisa_1.png" alt="Hoodie Costas"></div>
+                        <h4>Hoodie Oficial (Costas)</h4>
+                        <span class="price">€90.00</span>
+                        <a href="checkout.html?produto=Hoodie Oficial Costas&preco=90.00" class="btn-main btn-store track-click">Comprar</a>
+                    </div>
+                    <div class="product">
+                        <div class="product-img"><img src="MOCKUPS/Camisa_2.png" alt="Hoodie Frente"></div>
+                        <h4>Hoodie Oficial (Frente)</h4>
+                        <span class="price">€90.00</span>
+                        <a href="checkout.html?produto=Hoodie Oficial Frente&preco=90.00" class="btn-main btn-store track-click">Comprar</a>
+                    </div>
+                    <div class="product">
+                        <div class="product-img"><img src="MOCKUPS/Vinil.png" alt="Vinil"></div>
+                        <h4>Vinil "Quem Manda"</h4>
+                        <span class="price">€35.00</span>
+                        <a href="checkout.html?produto=Vinil Quem Manda&preco=35.00" class="btn-main btn-store track-click">Comprar</a>
+                    </div>
+                    <div class="product">
+                        <div class="product-img"><img src="MOCKUPS/Bone.png" alt="Boné"></div>
+                        <h4>Boné Oficial</h4>
+                        <span class="price">€25.00</span>
+                        <a href="checkout.html?produto=Boné Oficial&preco=25.00" class="btn-main btn-store track-click">Comprar</a>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-btn next-btn" id="store-next">&#10095;</button>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="section-header"><h2>Sobre</h2></div>
+        <div class="about-container">
+            <div class="about-img" style="background-image: url('imagens/21.jpg');"></div>
+            <div class="about-text">
+                <h3 style="margin-bottom: 15px; font-family: var(--font-serif);">Sobre a Ana Coimbra</h3>
+                <p>Nós tentamos partilhar quem somos através da nossa música.</p>
+                <p class="about-highlight">Uma vida dedicada à música tradicional.</p>
+            </div>
+        </div>
+        <div class="about-container" style="flex-direction: row-reverse;">
+            <div class="about-img" style="background-image: url('imagens/1.jpg');"></div>
+            <div class="about-text">
+                <h3 style="margin-bottom: 15px; font-family: var(--font-serif);">Sobre Xana Pereira</h3>
+                <p>Tentamos ao máximo ser vulneráveis e verdadeiras em cada nota.</p>
+                <p class="about-highlight">A alma vibrante da nova geração.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="subscribe">
+        <div class="section-header"><h2>Subscrever</h2></div>
+        <div class="subscribe-box">
+            <p>Receba novidades sobre concertos e produtos exclusivos.</p>
+            <form class="subscribe-form" id="sub-form">
+                <input type="email" class="subscribe-input" placeholder="O seu email" required>
+                <button type="submit" class="btn-main">Subscrever</button>
+            </form>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="section-header"><h2>Contactos</h2></div>
+        <div class="contact-form-box">
+            <p style="margin-bottom: 30px;">Contacte a nossa equipa para reservas e imprensa.</p>
+            <form class="contact-form-grid" id="contact-form">
+                <input type="text" class="contact-input" id="contact-name" placeholder="O seu nome" required>
+                <input type="email" class="contact-input" id="contact-email" placeholder="O seu email" required>
+                <input type="text" class="contact-input" id="contact-subject" placeholder="Assunto" required>
+                <textarea class="contact-textarea" id="contact-message" placeholder="A sua mensagem..." required></textarea>
+                <button type="submit" class="btn-main" style="width: 100%;">Enviar Mensagem</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Ti Laurinda e Lurdes. Todos os direitos reservados.</p>
+    </footer>
+
+    <div id="custom-alert-overlay" class="modal-overlay">
+        <div class="modal-box">
+            <h3 class="modal-title" id="alert-title">Aviso</h3>
+            <p class="modal-text" id="alert-message"></p>
+            <button id="alert-close-btn" class="btn-main" style="min-width: auto;">Fechar</button>
+        </div>
+    </div>
+
+    <div id="auth-modal-overlay" class="modal-overlay">
+        <div class="modal-box">
+            <span class="modal-close-x" id="auth-close-x">&times;</span>
+            <h3 class="modal-title" id="auth-title">Login</h3>
+            <form id="auth-form">
+                <input type="text" id="auth-name" class="auth-input" placeholder="Nome" style="display:none;">
+                <input type="email" id="auth-email" class="auth-input" placeholder="Email" required>
+                <input type="password" id="auth-password" class="auth-input" placeholder="Password" required>
+                <button type="submit" class="btn-main" style="width:100%">Entrar</button>
+            </form>
+            <p class="auth-switch" id="auth-switch-text">Não tem conta? Registar</p>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

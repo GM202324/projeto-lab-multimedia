@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes da Tour - Site Oficial</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Urbanist:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="css/style.css">
+    
+    <style>
+        .event-detail-card {
+            background: var(--card-block); padding: 40px; border-radius: 8px;
+            margin-bottom: 60px; border-left: 5px solid var(--highlight); scroll-margin-top: 100px; 
+        }
+        .event-date { font-family: var(--font-serif); color: var(--highlight); font-size: 1.8rem; font-weight: 700; margin-bottom: 10px; display: block; }
+        .event-location { font-size: 1.4rem; text-transform: uppercase; font-weight: 700; margin-bottom: 20px; display: block; }
+        .event-description { font-size: 1.1rem; line-height: 1.8; margin-bottom: 30px; opacity: 0.9; }
+        .event-meta {
+            display: flex; gap: 30px; margin-bottom: 30px;
+            border-top: 1px solid rgba(242, 227, 208, 0.2);
+            border-bottom: 1px solid rgba(242, 227, 208, 0.2); padding: 20px 0;
+        }
+        .meta-item strong { color: var(--highlight); display: block; text-transform: uppercase; font-size: 0.8rem; }
+        .meta-item span { font-size: 1.1rem; }
+        .back-link {
+            color: var(--highlight); text-decoration: none; font-weight: 700; font-size: 1.1rem;
+            border: 1px solid var(--highlight); padding: 10px 20px; border-radius: 4px; transition: 0.3s; display: inline-block;
+        }
+        .back-link:hover { background: var(--highlight); color: var(--bg-deep); }
+        .main-container { max-width: 900px; margin: 0 auto; padding: 40px 20px; flex-grow: 1; }
+        
+        @media (max-width: 768px) { .event-meta { flex-direction: column; gap: 15px; } }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="index.html#events" class="back-link">← Voltar à Agenda</a>
+        <button id="nav-login-btn" class="nav-btn login-btn">Login</button>
+    </header>
+
+    <div class="main-container">
+        <h1 style="text-align: center; font-family: var(--font-serif); color: var(--highlight); margin-bottom: 50px;">Detalhes da Tour Coimbra 2026</h1>
+
+        <article id="jul24" class="event-detail-card">
+            <span class="event-date">24 Julho</span>
+            <span class="event-location">Coimbra, Praça do Comércio</span>
+            <p class="event-description">A grande abertura da Tour de Verão acontece no coração da cidade...</p>
+            <div class="event-meta">
+                <div class="meta-item"><strong>Horário</strong><span>21:30</span></div>
+                <div class="meta-item"><strong>Tipo</strong><span>Ar Livre</span></div>
+                <div class="meta-item"><strong>Preço</strong><span>Grátis</span></div>
+            </div>
+            <a href="checkout.html?produto=Reserva Coimbra 24 Julho&preco=0.00" class="btn-main track-click">Reservar Lugar (Grátis)</a>
+        </article>
+
+        <article id="jul31" class="event-detail-card">
+            <span class="event-date">31 Julho</span>
+            <span class="event-location">Coimbra, Casa das Artes</span>
+            <p class="event-description">Uma sessão intimista e exclusiva nos jardins...</p>
+            <div class="event-meta">
+                <div class="meta-item"><strong>Horário</strong><span>22:00</span></div>
+                <div class="meta-item"><strong>Preço</strong><span>10,00 €</span></div>
+            </div>
+            <a href="checkout.html?produto=Bilhete Coimbra 31 Julho&preco=10.00" class="btn-main track-click">Comprar Bilhete</a>
+        </article>
+
+        <article id="ago07" class="event-detail-card">
+            <span class="event-date">7 Agosto</span>
+            <span class="event-location">Coimbra, Largo do Poço</span>
+            <p class="event-description">A festa desce à rua! O Largo do Poço vai transformar-se...</p>
+            <div class="event-meta">
+                <div class="meta-item"><strong>Horário</strong><span>21:30</span></div>
+                <div class="meta-item"><strong>Preço</strong><span>Livre</span></div>
+            </div>
+            <span class="btn-disabled">Sem Reserva Necessária</span>
+        </article>
+
+        <article id="ago14" class="event-detail-card">
+            <span class="event-date">14 Agosto</span>
+            <span class="event-location">Coimbra, Jardim da Sereia</span>
+            <p class="event-description">O grande encerramento da estadia em Coimbra...</p>
+            <div class="event-meta">
+                <div class="meta-item"><strong>Horário</strong><span>21:00</span></div>
+                <div class="meta-item"><strong>Preço</strong><span>15,00 €</span></div>
+            </div>
+            <a href="checkout.html?produto=Bilhete Coimbra 14 Agosto&preco=15.00" class="btn-main track-click">Comprar Bilhete</a>
+        </article>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Ti Laurinda e Lurdes. Todos os direitos reservados.</p>
+    </footer>
+
+    <div id="custom-alert-overlay" class="modal-overlay">
+        <div class="modal-box">
+            <h3 class="modal-title" id="alert-title">Aviso</h3>
+            <p class="modal-text" id="alert-message"></p>
+            <button id="alert-close-btn" class="btn-main" style="min-width: auto;">Fechar</button>
+        </div>
+    </div>
+
+    <div id="auth-modal-overlay" class="modal-overlay">
+        <div class="modal-box">
+            <span class="modal-close-x" id="auth-close-x">&times;</span>
+            <h3 class="modal-title" id="auth-title">Login</h3>
+            <form id="auth-form">
+                <input type="text" id="auth-name" class="auth-input" placeholder="Nome" style="display:none;">
+                <input type="email" id="auth-email" class="auth-input" placeholder="Email" required>
+                <input type="password" id="auth-password" class="auth-input" placeholder="Password" required>
+                <button type="submit" class="btn-main" style="width:100%">Entrar</button>
+            </form>
+            <p class="auth-switch" id="auth-switch-text">Não tem conta? Registar</p>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

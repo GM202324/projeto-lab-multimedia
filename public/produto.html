@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes - Site Oficial</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Urbanist:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600&display=swap" rel="stylesheet">
+
+    <style>
+        /* Mesma paleta de cores para consistência */
+        :root {
+            --bg-deep: #0D0706;      
+            --text-light: #F2E3D0;   
+            --highlight: #F2B90F;    
+            --action-main: #D91818;
+            --card-block: rgba(217, 24, 24, 0.5);   
+            --font-sans: 'Urbanist', sans-serif;       
+            --font-serif: 'Libre Baskerville', serif;    
+        }
+
+        body {
+            background-color: var(--bg-deep);
+            color: var(--text-light);
+            font-family: var(--font-sans);
+            margin: 0; padding: 0;
+            display: flex; flex-direction: column; min-height: 100vh;
+        }
+
+        header {
+            padding: 20px 40px;
+            border-bottom: 1px solid var(--card-block);
+            text-align: center;
+        }
+
+        .back-link {
+            color: var(--highlight);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            border: 1px solid var(--highlight);
+            padding: 10px 20px;
+            border-radius: 4px;
+            transition: 0.3s;
+        }
+        .back-link:hover { background: var(--highlight); color: var(--bg-deep); }
+
+        .content-box {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 40px;
+            background: var(--card-block);
+            border-radius: 8px;
+            flex-grow: 1; /* Empurra o rodapé para baixo */
+            text-align: center;
+        }
+
+        h1 { font-family: var(--font-serif); color: var(--highlight); margin-bottom: 20px; }
+        p { font-size: 1.1rem; line-height: 1.8; margin-bottom: 30px; }
+
+        footer {
+            text-align: center; padding: 20px;
+            border-top: 1px solid var(--card-block);
+            color: rgba(242, 227, 208, 0.5);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="back-link">← Voltar ao Início</a>
+    </header>
+
+    <div class="content-box">
+        <h1>Detalhes da Página</h1>
+        <p>Esta é uma página secundária de exemplo. Aqui estariam os detalhes completos sobre o concerto, a notícia completa ou a página de checkout do produto.</p>
+        <p>Como isto é um site estático, esta página serve para demonstrar a navegação.</p>
+        
+        <br>
+        <img src="https://placehold.co/600x300/0D0706/F2B90F?text=Detalhes+Aqui" alt="Detalhes" style="max-width:100%; border-radius:4px;">
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Nome do Artista. Todos os direitos reservados.</p>
+    </footer>
+
+</body>
+</html>
