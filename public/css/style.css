@@ -17,37 +17,14 @@ body {
     font-family: var(--font-sans);
     font-weight: 400;
     line-height: 1.6;
+    overflow-x: hidden; /* Evita scroll horizontal indesejado */
 }
 
 a { text-decoration: none; color: inherit; transition: 0.3s; }
 ul { list-style: none; }
 img { max-width: 100%; display: block; }
 
-/* --- MODAIS --- */
-.modal-overlay {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0, 0, 0, 0.85);
-    display: flex; justify-content: center; align-items: center;
-    z-index: 9999; opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
-    visibility: hidden;
-}
-.modal-overlay.active { opacity: 1; pointer-events: all; visibility: visible; }
-
-.modal-box {
-    background: var(--bg-deep); border: 2px solid var(--highlight);
-    padding: 40px; border-radius: 4px; text-align: center;
-    max-width: 90%; width: 450px; position: relative;
-    box-shadow: 0 0 30px rgba(242, 185, 15, 0.2);
-    transform: scale(0.9); transition: transform 0.3s ease;
-}
-.modal-overlay.active .modal-box { transform: scale(1); }
-
-.modal-title { font-family: var(--font-serif); color: var(--highlight); font-size: 1.5rem; margin-bottom: 15px; }
-.modal-text { font-family: var(--font-sans); font-size: 1.1rem; margin-bottom: 30px; color: var(--text-light); }
-.modal-close-x { position: absolute; top: 10px; right: 15px; font-size: 1.5rem; cursor: pointer; color: var(--text-light); }
-.modal-close-x:hover { color: var(--action-main); }
-
-/* --- HEADER --- */
+/* --- HEADER & NAV --- */
 header {
     background-color: rgba(13, 7, 6, 0.95); position: sticky; top: 0; z-index: 1000;
     padding: 15px 40px; border-bottom: 1px solid var(--card-block);
@@ -56,6 +33,7 @@ header {
 .header-logo img { height: 50px; width: auto; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5)); transition: transform 0.3s; }
 .header-logo img:hover { transform: scale(1.05); }
 
+/* Menu Desktop */
 nav { display: flex; align-items: center; flex-wrap: wrap; gap: 25px; }
 nav a, .nav-btn {
     font-family: var(--font-sans); text-transform: uppercase; font-size: 0.85rem;
@@ -66,53 +44,107 @@ nav a:hover, nav a.active, .nav-btn:hover { color: var(--highlight); opacity: 1;
 .login-btn { border: 1px solid var(--highlight); padding: 5px 15px; border-radius: 2px; color: var(--highlight); opacity: 1; }
 .login-btn:hover { background: var(--highlight); color: var(--bg-deep); }
 
-/* --- GERAL --- */
-section { padding: 80px 20px; max-width: 1200px; margin: 0 auto; }
-h2 {
-    font-family: var(--font-serif); font-weight: 700; font-size: 2.5rem;
-    margin-bottom: 50px; text-align: center; letter-spacing: -0.5px;
-    color: var(--highlight); position: relative; display: table; margin: 0 auto 50px;
+/* Botão Hambúrguer (Escondido em Desktop) */
+.menu-toggle { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; }
+.menu-toggle span { width: 30px; height: 3px; background-color: var(--highlight); border-radius: 2px; transition: 0.3s; }
+
+/* --- AGENDA (Eventos) --- */
+.event-row { 
+    display: flex; align-items: center; background: var(--card-block); 
+    margin-bottom: 20px; padding-right: 20px; border-radius: 4px; overflow: hidden; 
 }
+.date-box {
+    background: var(--bg-deep); color: var(--highlight); padding: 15px 25px;
+    text-align: center; margin-right: 20px; min-width: 100px;
+    border-right: 2px solid var(--highlight); font-family: var(--font-sans);
+    flex-shrink: 0; /* Impede a data de encolher */
+}
+.date-box .day { font-size: 2rem; font-weight: 900; display: block; line-height: 1; }
+.date-box .month { font-size: 0.9rem; text-transform: uppercase; font-weight: 600; letter-spacing: 1px; }
+.event-details { flex-grow: 1; padding: 10px; }
+.event-details h4 { font-size: 1.3rem; text-transform: uppercase; color: var(--text-light); font-weight: 700; }
+.event-details span { color: rgba(242, 227, 208, 0.7); font-size: 0.95rem; font-weight: 400; font-style: italic; }
+.event-actions { display: flex; gap: 15px; padding: 10px; align-items: center; }
+
+/* --- MEDIA QUERIES (TELEMÓVEL) --- */
+@media (max-width: 768px) {
+    /* Header & Menu Hambúrguer */
+    header { padding: 15px 20px; }
+    
+    .menu-toggle { display: flex; z-index: 1001; } /* Mostrar botão */
+    
+    nav {
+        position: absolute; top: 100%; left: 0; width: 100%;
+        background-color: rgba(13, 7, 6, 0.98);
+        border-bottom: 1px solid var(--highlight);
+        flex-direction: column; padding: 20px 0; gap: 0;
+        display: none; /* Escondido por defeito */
+    }
+    nav.active { display: flex; } /* Mostra quando ativo */
+    
+    nav a, .nav-btn {
+        width: 100%; text-align: center; padding: 15px;
+        border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 1.1rem;
+    }
+    .login-btn { width: 80%; margin: 20px auto 0; border: 1px solid var(--highlight); }
+
+    /* Correção da Agenda (Lado a Lado) */
+    .event-row { 
+        flex-wrap: wrap; /* Permite que os botões caiam para a linha de baixo */
+        padding-right: 0; 
+    }
+    .date-box {
+        margin-right: 15px; margin-bottom: 0; 
+        border-right: 2px solid var(--highlight); border-bottom: none;
+        width: auto; /* Tamanho automático, não 100% */
+    }
+    .event-details { 
+        flex-grow: 1; width: calc(100% - 140px); /* Ocupa o resto da linha */
+        text-align: left; 
+    }
+    .event-actions { 
+        width: 100%; /* Botões ocupam a linha de baixo toda */
+        flex-direction: column; 
+        padding: 0 15px 15px 15px;
+    }
+    
+    /* Outros ajustes Mobile */
+    #hero { height: 50vh; }
+    .music-player { flex-direction: column; text-align: center; border-left: none; border-top: 5px solid var(--highlight); padding: 20px; }
+    .about-container { padding: 20px; flex-direction: column; } 
+    .video-item-featured video { height: 250px; }
+    .store-viewport { margin: 0; } 
+    .product { min-width: 100%; }
+    .btn-main, .btn-link, .btn-disabled { width: 100%; min-width: 0; }
+    h1 { font-size: 2rem; }
+    h2 { font-size: 2rem; }
+}
+
+/* --- RESTANTE CSS (Mantém-se igual para Desktop) --- */
+/* (Copiei os estilos essenciais que não mudam) */
+section { padding: 80px 20px; max-width: 1200px; margin: 0 auto; }
+h2 { font-family: var(--font-serif); font-weight: 700; font-size: 2.5rem; margin-bottom: 50px; text-align: center; letter-spacing: -0.5px; color: var(--highlight); position: relative; display: table; margin: 0 auto 50px; }
 h2::after { content: ''; display: block; width: 60px; height: 3px; background: var(--card-block); margin: 15px auto 0; }
 .section-header { text-align: center; }
-
-/* --- BOTÕES E INPUTS --- */
-.btn-main, .btn-secondary, .btn-link, .btn-disabled {
-    display: inline-flex; justify-content: center; align-items: center;     
-    padding: 12px 30px; text-transform: uppercase; font-size: 0.9rem;  
-    font-weight: 700; text-decoration: none; text-align: center;
-    border-radius: 2px; transition: 0.3s; height: 48px; box-sizing: border-box; cursor: pointer;
-}
+.btn-main, .btn-secondary, .btn-link, .btn-disabled { display: inline-flex; justify-content: center; align-items: center; padding: 12px 30px; text-transform: uppercase; font-size: 0.9rem; font-weight: 700; text-decoration: none; text-align: center; border-radius: 2px; transition: 0.3s; height: 48px; box-sizing: border-box; cursor: pointer; }
 .btn-main { background-color: var(--action-main); color: var(--text-light); border: 1px solid var(--action-main); min-width: 200px; }
 .btn-main:hover { background-color: #ff3333; border-color: #ff3333; }
 .btn-link { background: transparent; color: var(--text-light); border: 1px solid var(--text-light); }
 .btn-link:hover { border-color: var(--highlight); color: var(--highlight); }
 .btn-disabled { background-color: rgba(255, 255, 255, 0.1); color: var(--text-light); border: 1px solid rgba(255, 255, 255, 0.2); cursor: default; min-width: 200px; }
 .btn-store { width: 100%; display: block; }
-
-.auth-input, .subscribe-input, .contact-input {
-    width: 100%; padding: 12px 20px; border: 1px solid var(--text-light);
-    background: rgba(13, 7, 6, 0.5); color: var(--text-light);
-    font-family: var(--font-sans); font-size: 1rem; border-radius: 2px;
-    outline: none; transition: 0.3s; margin-bottom: 15px;
-}
+.auth-input, .subscribe-input, .contact-input { width: 100%; padding: 12px 20px; border: 1px solid var(--text-light); background: rgba(13, 7, 6, 0.5); color: var(--text-light); font-family: var(--font-sans); font-size: 1rem; border-radius: 2px; outline: none; transition: 0.3s; margin-bottom: 15px; }
 .auth-input:focus, .subscribe-input:focus, .contact-input:focus { border-color: var(--highlight); }
 .auth-switch { margin-top: 15px; font-size: 0.9rem; cursor: pointer; text-decoration: underline; color: var(--highlight); }
-
-/* --- HERO --- */
 #hero { position: relative; height: 80vh; width: 100%; max-width: none; padding: 0; overflow: hidden; display: flex; align-items: center; justify-content: center; margin-bottom: 40px; }
 .slideshow-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
 .slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1.5s ease-in-out; filter: brightness(0.6); }
 .slide.active { opacity: 1; }
-
-/* --- VIDEO, AUDIO, AGENDA, NOTICIAS, LOJA, SOBRE (Mantidos iguais) --- */
-/* (Copiei os estilos destas secções que já tínhamos feito, garantindo que tudo fica igual) */
 .video-centered-container { display: flex; justify-content: center; width: 100%; }
 .video-item-featured { background: var(--card-block); border-radius: 4px; overflow: hidden; display: flex; flex-direction: column; width: 100%; max-width: 1000px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
 .video-item-featured video { width: 100%; height: 500px; object-fit: cover; background: black; }
 .video-info { padding: 10px 20px 25px 20px; text-align: center; }
 .video-title { font-family: var(--font-sans); font-weight: 500; color: var(--text-light); font-size: 1.5rem; }
-.music-player { background: var(--card-block); padding: 40px; display: flex; align-items: center; gap: 40px; flex-wrap: wrap; border-left: 5px solid var(--highlight); }
 .album-art { width: 250px; height: 250px; background: var(--bg-deep); flex-shrink: 0; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
 .album-art img { width: 100%; height: 100%; object-fit: cover; }
 .track-info { flex-grow: 1; }
@@ -129,14 +161,6 @@ h2::after { content: ''; display: block; width: 60px; height: 3px; background: v
 .time-display { font-family: var(--font-sans); font-size: 0.85rem; color: var(--text-light); opacity: 0.8; min-width: 80px; text-align: right; }
 .hidden { display: none !important; }
 .track-list li { padding: 10px 0; border-bottom: 1px solid rgba(242, 227, 208, 0.2); display: flex; justify-content: space-between; font-family: var(--font-sans); font-weight: 400; }
-.event-row { display: flex; align-items: center; background: var(--card-block); margin-bottom: 20px; padding-right: 20px; flex-wrap: wrap; border-radius: 4px; overflow: hidden; }
-.date-box { background: var(--bg-deep); color: var(--highlight); padding: 15px 25px; text-align: center; margin-right: 20px; min-width: 100px; border-right: 2px solid var(--highlight); font-family: var(--font-sans); }
-.date-box .day { font-size: 2rem; font-weight: 900; display: block; line-height: 1; }
-.date-box .month { font-size: 0.9rem; text-transform: uppercase; font-weight: 600; letter-spacing: 1px; }
-.event-details { flex-grow: 1; padding: 10px; }
-.event-details h4 { font-size: 1.3rem; text-transform: uppercase; color: var(--text-light); font-weight: 700; }
-.event-details span { color: rgba(242, 227, 208, 0.7); font-size: 0.95rem; font-weight: 400; font-style: italic; }
-.event-actions { display: flex; gap: 15px; padding: 10px; align-items: center; }
 .news-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
 .news-card { background: var(--card-block); border-radius: 4px; overflow: hidden; display: flex; flex-direction: column; }
 .news-card img { width: 100%; height: 200px; object-fit: cover; opacity: 0.9; }
@@ -163,41 +187,17 @@ h2::after { content: ''; display: block; width: 60px; height: 3px; background: v
 .subscribe-box { text-align: center; background: var(--card-block); padding: 50px; border-radius: 4px; max-width: 800px; margin: 0 auto; }
 .subscribe-box p { margin-bottom: 30px; font-size: 1.1rem; }
 .subscribe-form { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
-
-/* --- CONTACTO NOVO --- */
-.contact-form-box {
-    text-align: center; border: 2px solid var(--card-block); background: var(--bg-deep);
-    padding: 50px; max-width: 800px; margin: 0 auto;
-}
+.contact-form-box { text-align: center; border: 2px solid var(--card-block); background: var(--bg-deep); padding: 50px; max-width: 800px; margin: 0 auto; }
 .contact-form-grid { display: flex; flex-direction: column; gap: 15px; }
 .contact-input { background: rgba(255,255,255,0.05); }
-.contact-textarea {
-    width: 100%; padding: 12px 20px; border: 1px solid var(--text-light);
-    background: rgba(255,255,255,0.05); color: var(--text-light);
-    font-family: var(--font-sans); font-size: 1rem; border-radius: 2px;
-    outline: none; transition: 0.3s; min-height: 150px; resize: vertical;
-}
+.contact-textarea { width: 100%; padding: 12px 20px; border: 1px solid var(--text-light); background: rgba(255,255,255,0.05); color: var(--text-light); font-family: var(--font-sans); font-size: 1rem; border-radius: 2px; outline: none; transition: 0.3s; min-height: 150px; resize: vertical; }
 .contact-textarea:focus { border-color: var(--highlight); }
-
+.modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.85); display: flex; justify-content: center; align-items: center; z-index: 9999; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; visibility: hidden; }
+.modal-overlay.active { opacity: 1; pointer-events: all; visibility: visible; }
+.modal-box { background: var(--bg-deep); border: 2px solid var(--highlight); padding: 40px; border-radius: 4px; text-align: center; max-width: 90%; width: 450px; position: relative; box-shadow: 0 0 30px rgba(242, 185, 15, 0.2); transform: scale(0.9); transition: transform 0.3s ease; }
+.modal-overlay.active .modal-box { transform: scale(1); }
+.modal-title { font-family: var(--font-serif); color: var(--highlight); font-size: 1.5rem; margin-bottom: 15px; }
+.modal-text { font-family: var(--font-sans); font-size: 1.1rem; margin-bottom: 30px; color: var(--text-light); }
+.modal-close-x { position: absolute; top: 10px; right: 15px; font-size: 1.5rem; cursor: pointer; color: var(--text-light); }
+.modal-close-x:hover { color: var(--action-main); }
 footer { text-align: center; padding: 40px; border-top: 1px solid var(--card-block); color: rgba(242, 227, 208, 0.5); font-family: var(--font-sans); font-weight: 100; font-size: 0.9rem; letter-spacing: 1px; }
-
-@media (max-width: 768px) {
-    header { flex-direction: column; gap: 15px; }
-    #hero { height: 50vh; }
-    .event-row { flex-direction: column; text-align: center; }
-    .date-box { margin: 0 0 10px 0; border-right: none; border-bottom: 2px solid var(--highlight); width: 100%; }
-    .music-player { flex-direction: column; text-align: center; border-left: none; border-top: 5px solid var(--highlight); }
-    .about-container { padding: 20px; flex-direction: column; } 
-    .video-item-featured video { height: 300px; }
-    .audio-controls { flex-wrap: wrap; justify-content: center; }
-    .progress-container { width: 100%; order: 3; margin-top: 10px; }
-    .store-viewport { margin: 0 0px; margin-bottom: 50px; } 
-    .product { min-width: 100%; }
-    .carousel-btn { top: auto; bottom: 0; }
-    .prev-btn { left: 35%; }
-    .next-btn { right: 35%; }
-    .subscribe-form { flex-direction: column; }
-    .subscribe-input, .contact-input { max-width: 100%; }
-    .event-actions { flex-direction: column; width: 100%; }
-    .btn-main, .btn-link, .btn-disabled { width: 100%; min-width: 0; }
-}
